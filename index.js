@@ -57,7 +57,8 @@ export default class Search extends Component {
     keyboardAppearance: PropTypes.string,
     fontFamily: PropTypes.string,
     allDataOnEmptySearch: PropTypes.bool,
-    editable: PropTypes.bool
+    editable: PropTypes.bool,
+    preventClearIfEmpty: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -90,7 +91,8 @@ export default class Search extends Component {
     allDataOnEmptySearch: false,
     backCloseSize: 28,
     fontSize: 20,
-    editable: true
+    editable: true,
+    preventClearIfEmpty: true,
   };
 
   constructor(props) {
@@ -160,7 +162,11 @@ export default class Search extends Component {
   };
 
   _handleX = () => {
-    const { onX } = this.props;
+    const { onX, preventClearIfEmpty } = this.props;
+    if (preventClearIfEmpty && this.state.input === '') {
+      return;
+    }
+    
     this._clearInput();
     if (onX) onX();
   };
@@ -342,7 +348,7 @@ export default class Search extends Component {
                 accessibilityComponentType="button"
                 accessibilityLabel={closeButtonAccessibilityLabel}
                 onPress={
-                  hideX || this.state.input === '' ? null : this._handleX
+                  hideX ? null : this._handleX
                 }>
                 {closeButton ? (
                   <View style={{ width: backCloseSize, height: backCloseSize }}>
