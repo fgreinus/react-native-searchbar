@@ -61,6 +61,7 @@ keyboardAppearance | string | 'default' | Determines the color of the keyboard.
 fontFamily | string | `System` | The font family to be used.
 fontSize | number | 20 | Sets the font size.
 allDataOnEmptySearch | boolean | `false` | Search results behave as a `.filter`, returning all data when the input is an empty string.
+preventClearIfEmpty | boolean | `true` | Prevents the X-button to trigger its functionality when the text input is empty.
 
 
 
